@@ -34,4 +34,4 @@ map <leader>tf :tabfirst<cr>
 map <leader>tl :tablast<cr>
 map <leader>tm :tabmove hidden
 
-colorscheme vividchalk 
+colorscheme twilight2
