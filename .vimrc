@@ -51,4 +51,4 @@ map <F12> :NERDTreeToggle<cr>
 map <leader>r :source $MYVIMRC<cr>
 map <F11> :TagbarToggle<cr>
 
-colorscheme wombat
+colorscheme vividchalk
