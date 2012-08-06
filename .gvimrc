@@ -1,1 +1,1 @@
-colorscheme wombat
+colorscheme Tomorrow-Night

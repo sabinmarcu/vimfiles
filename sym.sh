@@ -14,23 +14,31 @@ for file in $FILES
 do
 	echo "Checking '$file' :"; 
 	echo "-------------------------";
-	if [ -e "$PWD/$file" ] 
+	if [ -e "~/$file" ] 
 	then	
 		echo "File already exists physically. Deleting file ..."; 	
-		rm -rf "$PWD/$file"
+		rm -rf "~/$file"
 	fi
-	if [ -h "$PWD/$file"  ]
+	if [ -h "~/$file"  ]
 	then	
 		echo "File already exists as a symlink. Deleting file ..."; 
-		rm -rf "$PWD/$file"
+		rm -rf "~/$file"
 	fi
-	ln -s $file "$PWD/$file"
+	ln -s "~/.vim/$file" "~/$file"
 	echo "Done."
 done
 
 echo "
 --------------------------------------------------
-Checking done. You're good to go!
-
+Checking done. Now updating submodules!
 "
+
+cd ~/.vim
+git submodule update --init
+
+echo "
+--------------------------------------------------
+It works!
+"
+
 exit 0

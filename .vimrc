@@ -14,6 +14,11 @@ set backspace=indent,eol,start
 set wildmenu
 set wildmode=list:longest
 
+set noexpandtab
+set autoindent
+set tabstop=4
+set shiftwidth=4
+
 set ignorecase
 set smartcase
 
@@ -24,9 +29,6 @@ set incsearch
 set hlsearch
 
 set wrap
-
-set nobackup
-set nowritebackup
 
 set laststatus=2
 set statusline=
@@ -49,6 +51,8 @@ map <leader>tm :tabmove hidden
 map <leader>nt :NERDTreeToggle
 map <F12> :NERDTreeToggle<cr>
 map <leader>r :source $MYVIMRC<cr>
-map <F11> :TagbarToggle<cr>
+map <F8> :TagbarToggle<cr>
 
-colorscheme vividchalk
+set t_Co=256
+
+colorscheme Tomorrow-Night
