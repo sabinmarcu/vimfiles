@@ -1,0 +1,5 @@
+let g:spf13_bundle_groups=['general', 'programming', 'javascript', 'html', 'misc']
+if count(g:spf13_bundle_groups, 'javascript') 
+    Bundle 'kchmck/vim-coffee-script'
+endif
+Bundle "chriskempson/vim-tomorrow-theme"

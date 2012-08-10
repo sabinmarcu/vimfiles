@@ -1,0 +1,18 @@
+colorscheme twilight
+set noexpandtab
+set tabstop=4
+set background=dark
+autocmd BufNewFile,BufReadPost *.coffee setfiletype coffee
+let g:tagbar_type_coffee = {
+    \ 'ctagsbin' : 'coffeetags',
+    \ 'ctagsargs' : '--include-vars',
+    \ 'kinds' : [
+    \ 'f:functions',
+    \ 'o:object',
+    \ ],
+    \ 'sro' : ".",
+    \ 'kind2scope' : {
+    \ 'f' : 'object',
+    \ 'o' : 'object',
+    \ }
+    \ }
