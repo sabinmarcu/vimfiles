@@ -4,3 +4,6 @@ if count(g:spf13_bundle_groups, 'javascript')
 endif
 Bundle "chriskempson/vim-tomorrow-theme"
 Bundle "mattn/zencoding-vim"
+Bundle "vim-scripts/TaskList.vim"
+Bundle "claco/jasmine.vim"
+Bundle "mattn/zencoding-vim"
