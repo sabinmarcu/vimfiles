@@ -1,0 +1,9 @@
+colorscheme Tomorrow
+
+autocmd! BufEnter,BufNewFile *.less,*.css colorscheme molokai
+autocmd! BufEnter,BufNewFile *.html,*.eco colorscheme wombat
+autocmd! BufEnter,BufNewFile *.js,*.coffee colorscheme twilight
+
+autocmd! BufLeave * colorscheme Tomorrow
+
+map <A-F12> :source\ ~/.vimrc<cr>:set lines=999 columns=999<cr>

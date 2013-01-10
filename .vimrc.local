@@ -1,18 +1,19 @@
 set shell=/bin/bash
-colorscheme Tomorrow
+colorscheme molokai
 
-map <A-F12> :source\ ~/.vimrc<cr>:set lines=999 columns=999<cr>
+map <A-F12> :source\ ~/.vimrc<cr>
 map <C-F12> :NERDTreeToggle<cr>
 map <C-F11> :TagbarToggle<cr>
 map <C-t> :TaskList<cr>
-map <C-S-p> :Hammer<cr>
 
 map <leader><left> :tabprevious<cr>
 map <leader><right> :tabnext<cr>
 map <leader>l :tabnext<cr>
 map <leader>h :tabprevious<cr>
-map <C-S-t> :ConqueTermVSplit fish<cr>
-map <C-S-A-t> :ConqueTermSplit fish <cr>
+
+nnoremap yy yy"+yy
+noremap gp "+p
+vnoremap y ygv"+y
 
 set noexpandtab
 set tabstop=4
@@ -23,7 +24,13 @@ au BufEnter * inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "<TAB>"
 
 set fdm=indent
 
-set guifont=Menlo:h10
+if has("unix")
+	set guifont=Inconsolata\ 10
+elseif has("win32")
+	set guifont=Consolah10
+else
+	set guifont=Menlo:h10
+endif
 
 set wrap
 set linebreak
@@ -37,8 +44,21 @@ set noautochdir
 autocmd BufNewFile,BufReadPost *.coffee setfiletype coffee
 autocmd BufNewFile,BufReadPost *.eco setfiletype eco
 autocmd BufNewFile,BufReadPost *.less setfiletype less
+autocmd BufNewFile,BufReadPost *.styl setfiletype stylus
 
-let g:tagbar_type_coffee = {
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+
+imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
+let g:neosnippet#snippets_directory = "~/.vim/bundle/vim-snippets/snippets"
+
+let tagbar_type_coffee = {
     \ 'ctagsbin' : 'coffeetags',
     \ 'ctagsargs' : '--include-vars',
     \ 'kinds' : [
@@ -51,3 +71,41 @@ let g:tagbar_type_coffee = {
     \ 'o' : 'object',
     \ }
     \ }
+
+function! MarkwindowSwap()
+    let markedWinNum = winnr()
+endfunction
+
+function! DowindowSwap()
+    "Mark destination
+    let curNum = winnr()
+    let curBuf = bufnr( "%" )
+    exe markedWinNum . "wincmd w"
+    "Switch to source and shuffle dest->source
+    let markedBuf = bufnr( "%" )
+    "Hide and open so that we aren't prompted and keep history
+    exe 'hide buf' curBuf
+    "Switch to dest and shuffle source->dest
+    exe curNum . "wincmd w"
+    "Hide and open so that we aren't prompted and keep history
+    exe 'hide buf' markedBuf 
+endfunction
+
+nmap <silent> <leader>mw :call MarkwindowSwap()<cr>
+nmap <silent> <leader>pw :call DowindowSwap()<cr>
+
+if executable('coffeetags')
+  let tagbar_type_coffee = {
+        \ 'ctagsbin' : 'coffeetags',
+        \ 'ctagsargs' : '',
+        \ 'kinds' : [
+        \ 'f:functions',
+        \ 'o:object',
+        \ ],
+        \ 'sro' : ".",
+        \ 'kind2scope' : {
+        \ 'f' : 'object',
+        \ 'o' : 'object',
+        \ }
+        \ }
+endif
