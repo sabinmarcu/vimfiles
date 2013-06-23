@@ -109,3 +109,5 @@ if executable('coffeetags')
         \ }
         \ }
 endif
+
+let g:ackprg="/usr/bin/ack-grep -H --nocolor --nogroup --column"
