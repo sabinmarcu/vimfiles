@@ -1,5 +1,6 @@
 set shell=/bin/bash
-colorscheme molokai
+colorscheme solarized
+set background=dark
 
 map <A-F12> :source\ ~/.vimrc<cr>
 map <C-F12> :NERDTreeToggle<cr>
@@ -11,25 +12,28 @@ map <leader><right> :tabnext<cr>
 map <leader>l :tabnext<cr>
 map <leader>h :tabprevious<cr>
 
+for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]
+	execute "map <D-".i."> :tabn".i."<cr>" 
+endfor
+
 nnoremap yy yy"+yy
 noremap gp "+p
 vnoremap y ygv"+y
 
 set noexpandtab
 set tabstop=4
-set background=light
 
 au BufEnter * inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "<TAB>"
 au BufEnter * inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "<TAB>"
 
 set fdm=indent
 
-if has("unix")
-	set guifont=Inconsolata\ 10
+if has("mac")
+	set guifont=Inconsolata:h10
 elseif has("win32")
 	set guifont=Consolah10
 else
-	set guifont=Menlo:h10
+	set guifont=Inconsolata\ 10
 endif
 
 set wrap
@@ -109,5 +113,3 @@ if executable('coffeetags')
         \ }
         \ }
 endif
-
-let g:ackprg="/usr/bin/ack-grep -H --nocolor --nogroup --column"
