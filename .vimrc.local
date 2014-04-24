@@ -1,0 +1,162 @@
+set shell=/bin/bash
+colorscheme Tomorrow-Night-Bright
+set background=dark
+
+map <A-F12> :source\ ~/.vimrc<cr>
+map <C-F12> :NERDTreeToggle<cr>
+map <C-F11> :TagbarToggle<cr>
+map <C-A-t> :TaskList<cr>
+
+map <leader>n :tabnew<cr>
+map <C-t> :tabnew<cr>
+map <leader><C-t> :TagbarToggle<cr>
+map <leader><left> :tabprevious<cr>
+map <leader><right> :tabnext<cr>
+map <leader>l :tabnext<cr>
+map <leader>h :tabprevious<cr>
+
+map <silent> <C-m> :make<cr>
+map <silent> <leader><C-m> :make clean<cr>
+map <silent> <leader><leader><C-m> :make run<cr>
+
+map <leader><leader>c /cabxhjasgcjahdvhaosdfyoasjfovjsf<cr>
+
+for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]
+	execute "map <leader>".i." :tabn".i."<cr>" 
+endfor
+
+nnoremap yy yy"+yy
+noremap gp "+p
+vnoremap y ygv"+y
+
+set expandtab
+set tabstop=4
+
+au BufEnter * inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "<TAB>"
+au BufEnter * inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "<TAB>"
+
+set fdm=indent
+
+if has("mac")
+	set guifont=Inconsolata:h10
+elseif has("win32")
+	set guifont=Consolah10
+else
+	set guifont=Inconsolata\ 10
+endif
+
+set wrap
+set linebreak
+set nolist
+set textwidth=0
+set wrapmargin=0
+set formatoptions+=1
+
+set noautochdir
+
+autocmd BufNewFile,BufReadPost *.coffee setfiletype coffee
+autocmd BufNewFile,BufReadPost *.eco setfiletype eco
+autocmd BufNewFile,BufReadPost *.less setfiletype less
+autocmd BufNewFile,BufReadPost *.styl setfiletype stylus
+
+"imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+
+"imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+"smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
+let g:neosnippet#snippets_directory="~/.vim/bundle/vim-snippets/snippets"
+
+let tagbar_type_coffee = {
+    \ 'ctagsbin' : 'coffeetags',
+    \ 'ctagsargs' : '--include-vars',
+    \ 'kinds' : [
+    \ 'f:functions',
+    \ 'o:object',
+    \ ],
+    \ 'sro' : ".",
+    \ 'kind2scope' : {
+    \ 'f' : 'object',
+    \ 'o' : 'object',
+    \ }
+    \ }
+
+function! MarkwindowSwap()
+    let markedWinNum = winnr()
+endfunction
+
+function! DowindowSwap()
+    "Mark destination
+    let curNum = winnr()
+    let curBuf = bufnr( "%" )
+    exe markedWinNum . "wincmd w"
+    "Switch to source and shuffle dest->source
+    let markedBuf = bufnr( "%" )
+    "Hide and open so that we aren't prompted and keep history
+    exe 'hide buf' curBuf
+    "Switch to dest and shuffle source->dest
+    exe curNum . "wincmd w"
+    "Hide and open so that we aren't prompted and keep history
+    exe 'hide buf' markedBuf 
+endfunction
+
+nmap <silent> <leader>mw :call MarkwindowSwap()<cr>
+nmap <silent> <leader>pw :call DowindowSwap()<cr>
+
+if executable('coffeetags')
+  let tagbar_type_coffee = {
+        \ 'ctagsbin' : 'coffeetags',
+        \ 'ctagsargs' : '',
+        \ 'kinds' : [
+        \ 'f:functions',
+        \ 'o:object',
+        \ ],
+        \ 'sro' : ".",
+        \ 'kind2scope' : {
+        \ 'f' : 'object',
+        \ 'o' : 'object',
+        \ }
+        \ }
+endif
+
+" Airline configuration over here
+
+function WordCount()
+  let s:old_status = v:statusmsg
+  exe "silent normal g\<c-g>"
+  if v:statusmsg == "--No lines in buffer--"
+	  let s:word_count = 0
+  else 
+	  let s:word_count = str2nr(split(v:statusmsg)[11])
+  endif
+  let v:statusmsg = s:old_status
+  return s:word_count
+endfunction
+
+let g:airline_powerline_fonts=1
+let g:airline#extensions#tabline#enabled=1
+let g:airline_theme="tomorrow"
+let g:airline_mode_map = {
+	  \ '__' : '-',
+	  \ 'n'  : 'N',
+	  \ 'i'  : 'I',
+	  \ 'R'  : 'R',
+	  \ 'c'  : 'C',
+	  \ 'v'  : 'V',
+	  \ 'V'  : 'V',
+	  \ '' : 'V',
+	  \ 's'  : 'S',
+	  \ 'S'  : 'S',
+	  \ '' : 'S',
+	  \ }
+function! AirlineInit()
+	let l:temp = g:airline_section_b
+	let g:airline_section_b = airline#section#create([l:temp, " | WC ", '%{WordCount()}'])
+	let l:temp = g:airline_section_c
+	let g:airline_section_c = airline#section#create(['%{getcwd()}', " ", l:temp])
+endfunction
+autocmd VimEnter * call AirlineInit()
