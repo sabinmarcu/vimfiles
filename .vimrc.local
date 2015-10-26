@@ -1,6 +1,15 @@
 set shell=/bin/bash
-colorscheme Tomorrow-Night-Bright
-set background=dark
+try
+    if empty($LIGHT_TERMINAL)
+        colorscheme Tomorrow-Night-Bright
+        set background=dark
+    else
+        colorscheme Tomorrow
+        set background=light
+    endif
+catch /^Vim\%((\a\+)\)\=:E185/
+    colorscheme default
+endtry
 
 map <A-F12> :source\ ~/.vimrc<cr>
 map <C-F12> :NERDTreeToggle<cr>
