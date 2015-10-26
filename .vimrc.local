@@ -15,9 +15,12 @@ map <leader><right> :tabnext<cr>
 map <leader>l :tabnext<cr>
 map <leader>h :tabprevious<cr>
 
-map <silent> <C-m> :make<cr>
+map <leader>L :bn<cr>
+map <leader>H :bp<cr>
+
+map <silent> <C-m> :make run<cr>
 map <silent> <leader><C-m> :make clean<cr>
-map <silent> <leader><leader><C-m> :make run<cr>
+map <silent> <leader><leader><C-m> :make<cr>
 
 map <leader><leader>c /cabxhjasgcjahdvhaosdfyoasjfovjsf<cr>
 
