@@ -3,7 +3,7 @@ if count(g:spf13_bundle_groups, 'javascript')
     Bundle 'kchmck/vim-coffee-script'
 endif
 Bundle "chriskempson/vim-tomorrow-theme"
-Bundle "mattn/zencoding-vim"
+Bundle "mattn/emmet-vim"
 Bundle "vim-scripts/TaskList.vim"
 Bundle "claco/jasmine.vim"
 Bundle "vim-scripts/marvim"
