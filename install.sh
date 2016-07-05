@@ -3,7 +3,7 @@
 PWD=$(pwd)
 
 mkdir $PWD/.vim
-ls -a | grep vim | xargs -I f ln -s $PWD/f $HOME/f
+ls -a | grep vim | xargs -I % ln -s $PWD/% $HOME/%
 
 git clone http://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle
 
