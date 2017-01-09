@@ -31,3 +31,4 @@ Bundle "sjl/gundo.vim"
 Bundle "mustache/vim-mustache-handlebars"
 Bundle "terryma/vim-multiple-cursors"
 Bundle 'isRuslan/vim-es6'
+Plugin 'vim-airline/vim-airline-themes'

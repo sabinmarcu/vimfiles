@@ -1,7 +1,7 @@
 set shell=/bin/bash
 try
     if empty($LIGHT_TERMINAL)
-        colorscheme Tomorrow-Night-Bright
+        colorscheme Tomorrow-Night
         set background=dark
     else
         colorscheme Tomorrow
@@ -11,7 +11,7 @@ catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme default
 endtry
 
-map <A-F12> :source\ ~/.vimrc<cr>
+map <A-F12> :source\: ~/.vimrc<cr>
 map <C-F12> :NERDTreeToggle<cr>
 map <C-F11> :TagbarToggle<cr>
 map <C-A-t> :TaskList<cr>
@@ -34,7 +34,7 @@ map <silent> <leader><leader><C-m> :make<cr>
 map <leader><leader>c /cabxhjasgcjahdvhaosdfyoasjfovjsf<cr>
 
 for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]
-	execute "map <leader>".i." :tabn".i."<cr>" 
+	execute "map <leader>".i." :tabn".i."<cr>"
 endfor
 
 nnoremap yy yy"+yy
@@ -113,7 +113,7 @@ function! DowindowSwap()
     "Switch to dest and shuffle source->dest
     exe curNum . "wincmd w"
     "Hide and open so that we aren't prompted and keep history
-    exe 'hide buf' markedBuf 
+    exe 'hide buf' markedBuf
 endfunction
 
 nmap <silent> <leader>mw :call MarkwindowSwap()<cr>
@@ -142,7 +142,7 @@ function WordCount()
   exe "silent normal g\<c-g>"
   if v:statusmsg == "--No lines in buffer--"
 	  let s:word_count = 0
-  else 
+  else
 	  let s:word_count = str2nr(split(v:statusmsg)[11])
   endif
   let v:statusmsg = s:old_status
