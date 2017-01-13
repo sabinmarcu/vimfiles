@@ -17,4 +17,5 @@ else
 fi
 
 cd .vimfiles
+ls -al .
 ./configure
