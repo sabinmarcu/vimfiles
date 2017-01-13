@@ -17,11 +17,13 @@ else
 fi
 
 cd .vimfiles
+ls -al .
 PWD=$(pwd)
 
 mkdir $PWD/.vim
 ls -a | grep vim | xargs -I % ln -s $PWD/% $HOME/%
 
 git clone http://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle
+ls -al .
 
 vim +BundleInstall +BundleClean +qall
